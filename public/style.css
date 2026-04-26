@@ -1,0 +1,69 @@
+body {
+    font-family: "Vazir";
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.max-height-38-px {
+    max-height: 38px;
+}
+
+.max-height-28-px {
+    max-height: 28px;
+}
+
+.max-height-24-px {
+    max-height: 24px;
+}
+
+.font-monospace-small {
+    font-size: 0.8em;
+    font-family: monospace;
+}
+
+.fs-3em {
+    font-size: 3em;
+}
+
+.bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: left;
+    background-position-y: top;
+}
+
+.text-shadow-white {
+    text-shadow:
+        0 0 0.15em white,
+        0 0 0.15em white,
+        0 0 0.15em white;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.w-32 {
+    width: 32px;
+}
+
+.col-card {
+    flex: 0 0 auto;
+    width: 14.2857143%;
+}
+
+.fs-7 {
+    font-size: 0.875em !important;
+}
+
+.fs-8 {
+    font-size: 0.75em !important;
+}
+
+.bi::before,
+[class*=" bi-"]::before,
+[class^="bi-"]::before {
+    vertical-align: middle !important;
+}
