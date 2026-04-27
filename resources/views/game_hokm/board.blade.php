@@ -28,13 +28,13 @@
                     text-center p-3">
                 <div class="row g-1">
                     <div
-                        class="w-100 bg-white rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
+                        class="w-100 bg-tertiary rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
                         <div class="d-flex flex-row col"></div>
                         <div class="d-flex flex-row col justify-content-center fs-7">
                             <div class="" x-text="getCirclePlayerAttr(0, 'name')"></div>
                         </div>
                         <div class="d-flex flex-row col justify-content-end">
-                            <a href="{{ route('game_hokms.index') }}" class="fs-8 rounded text-muted text-decoration-none text-dark">
+                            <a href="{{ route('game_hokms.index') }}" class="fs-8 text-body-tertiary rounded text-muted text-decoration-none text-dark">
                                 بازگشت
                             </a>
                         </div>
