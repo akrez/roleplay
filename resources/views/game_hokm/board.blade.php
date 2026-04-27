@@ -29,7 +29,7 @@
                 <div class="row g-1">
                     <div class="col-12">
                         <div
-                            class="border border-dark border-1 w-100 bg-tertiary rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
+                            class="border border-dark border-1 w-100 text-bg-tertiary rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
                             <div class="d-flex flex-row col"></div>
                             <div class="d-flex flex-row col justify-content-center fs-7">
                                 <div class="" x-text="getCirclePlayerAttr(0, 'name')"></div>
