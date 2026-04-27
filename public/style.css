@@ -76,5 +76,9 @@ body {
 }
 
 .bg-tertiary {
-  background-color: rgba(222, 226, 230) !important;
+    background-color: rgba(222, 226, 230) !important;
+}
+
+.max-width-100 {
+    max-width: 100%;
 }

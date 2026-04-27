@@ -34,7 +34,8 @@
                             <div class="" x-text="getCirclePlayerAttr(0, 'name')"></div>
                         </div>
                         <div class="d-flex flex-row col justify-content-end">
-                            <a href="{{ route('game_hokms.index') }}" class="fs-8 text-body-tertiary rounded text-muted text-decoration-none text-dark">
+                            <a href="{{ route('game_hokms.index') }}"
+                                class="fs-8 text-body-tertiary rounded text-muted text-decoration-none text-dark">
                                 بازگشت
                             </a>
                         </div>
@@ -297,7 +298,7 @@
                             <div class="col-12 d-flex">
                                 <div class="input-group flex-fill me-1">
                                     <button class="btn btn-success p-2" @click="sendQuote(quote);"
-                                        :disabled="isSendingQuote">
+                                        :disabled="isSendingQuote || (quote.length > 64)">
                                         <i class="bi-chevron-right"></i>
                                     </button>
                                     <input type="text" class="form-control text-center p-2 pb-1" x-model="quote">
@@ -309,9 +310,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 text-center">
+                            <div class="col-12 text-start fs-7">
+                                <span x-text="quote.length"
+                                    :class="quote.length > 64 ? 'text-danger' : 'text-warning'"></span>
+                                <span>/</span>
+                                <span class="text-success" x-text="64"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center g-1">
                                 <template x-for="oldQuote in oldQuotes">
-                                    <div class="d-inline-block rounded fs-6 small text-bg-secondary cursor-pointer m-1 p-1"
+                                    <div class="d-inline-block rounded fs-6 max-width-100 text-bg-secondary cursor-pointer p-1 text-truncated m-1"
                                         x-text="oldQuote" @click="setQuote(oldQuote);"></div>
                                 </template>
                             </div>
