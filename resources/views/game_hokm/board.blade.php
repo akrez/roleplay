@@ -27,6 +27,18 @@
                     d-flex flex-column justify-content-between
                     text-center p-3">
                 <div class="row g-1">
+                    <div
+                        class="w-100 bg-white rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
+                        <div class="d-flex flex-row col"></div>
+                        <div class="d-flex flex-row col justify-content-center fs-7">
+                            <div class="" x-text="getCirclePlayerAttr(0, 'name')"></div>
+                        </div>
+                        <div class="d-flex flex-row col justify-content-end">
+                            <a href="{{ route('game_hokms.index') }}" class="fs-8 rounded text-muted text-decoration-none text-dark">
+                                بازگشت
+                            </a>
+                        </div>
+                    </div>
                     <div class="col-4">
                         <div class="card border-success mb-1 fs-8">
                             <div class="card-header text-bg-success p-1">
@@ -52,8 +64,6 @@
                         </div>
                     </div>
                     <div class="col-4 d-flex flex-column justify-content-between">
-                        <a href="{{ route('game_hokms.index') }}"
-                            class="btn btn-sm btn-secondary border-dark fs-8 rounded">بازگشت</a>
                         <div style="text-shadow: 0 0 20px yellow;"
                             class="m-0 p-0 pt-2 fs-1 rounded my-1 flex-fill d-flex justify-content-center align-items-center"
                             x-text="(turn && turn['suit']) ? suits[turn['suit']]['suit_symbol'] : 'ㅤ'">
