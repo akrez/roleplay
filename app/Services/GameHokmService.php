@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class GameHokmService extends Service
 {
+    const QUOTE_MAX_LENGTH = 64;
+
     const PLAYER_1 = 'player_1';
 
     const PLAYER_2 = 'player_2';
@@ -213,7 +215,7 @@ class GameHokmService extends Service
             'quote' => [
                 'nullable',
                 'string',
-                'max:64',
+                'max:'.static::QUOTE_MAX_LENGTH,
             ],
         ]);
 

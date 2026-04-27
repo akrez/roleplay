@@ -583,12 +583,6 @@
 
                     oldQuote = this.quote;
 
-                    if (quote) {
-                        this.oldQuotes = this.oldQuotes.filter(x => x !== quote);
-                        this.oldQuotes.unshift(quote);
-                        this.oldQuotes = this.oldQuotes.slice(0, 10);
-                    }
-
                     try {
 
                         if (this.isSendingQuote) return;
@@ -612,6 +606,11 @@
                             this.players[this.circleIndexToPlayer(0)]['quote'] = quote;
                             this.$dispatch('close-quote-modal');
                             this.quote = quote;
+                            if (quote) {
+                                this.oldQuotes = this.oldQuotes.filter(x => x !== quote);
+                                this.oldQuotes.unshift(quote);
+                                this.oldQuotes = this.oldQuotes.slice(0, 10);
+                            }
                         } else {
                             res.json().then(res => {
                                 this.alertError(res.message);
