@@ -35,7 +35,7 @@
                         </div>
                         <div class="d-flex flex-row col justify-content-end">
                             <a href="{{ route('game_hokms.index') }}"
-                                class="fs-8 text-body-tertiary rounded text-muted text-decoration-none text-dark">
+                                class="fs-8 rounded text-muted text-decoration-none text-dark">
                                 بازگشت
                             </a>
                         </div>
