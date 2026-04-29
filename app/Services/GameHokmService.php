@@ -90,8 +90,8 @@ class GameHokmService extends Service
 
         $gameHokmData = [
             'owner_id' => $user->id,
-            'winners' => [],
             'data' => [
+                'winners' => [],
                 'deck' => $this->prepareDeck(),
                 'state' => static::STATE_SELECT_TURN_SUIT,
                 'turn' => [
@@ -148,7 +148,7 @@ class GameHokmService extends Service
         $playerIdColumn = $player.'_id';
 
         $gameHokm = GameHokm::query()->select([
-            'id', 'winners', 'modified_at',
+            'id', 'modified_at',
             'player_1_id', 'player_1_token', 'player_1_name', 'player_1_quote',
             'player_2_id', 'player_2_token', 'player_2_name', 'player_2_quote',
             'player_3_id', 'player_3_token', 'player_3_name', 'player_3_quote',
@@ -195,7 +195,7 @@ class GameHokmService extends Service
         }
 
         $gameHokm = GameHokm::query()->select([
-            'id', 'winners', 'modified_at',
+            'id', 'modified_at',
             'player_1_id', 'player_1_token', 'player_1_name', 'player_1_quote',
             'player_2_id', 'player_2_token', 'player_2_name', 'player_2_quote',
             'player_3_id', 'player_3_token', 'player_3_name', 'player_3_quote',
@@ -205,7 +205,7 @@ class GameHokmService extends Service
             return ApiResponse::new(404);
         }
 
-        if ($gameHokm->winners) {
+        if ($gameHokm->finished_at) {
             return ApiResponse::new(406);
         }
 
@@ -242,7 +242,7 @@ class GameHokmService extends Service
             return ApiResponse::new(404);
         }
 
-        if ($gameHokm->winners) {
+        if ($gameHokm->finished_at) {
             return ApiResponse::new(406);
         }
 
@@ -285,8 +285,9 @@ class GameHokmService extends Service
                     $data['turn']['scores'][$newTurnScore['winner_team']] += $newTurnScore['score'];
                     $newGameScore = $this->calcGameWinner($data);
                     if ($newGameScore) {
+                        $data['winners'] = $newGameScore;
                         $gameHokm->data = $data;
-                        $gameHokm->winners = $newGameScore;
+                        $gameHokm->finished_at = now();
                         $gameHokm->save();
 
                         return ApiResponse::new(200);

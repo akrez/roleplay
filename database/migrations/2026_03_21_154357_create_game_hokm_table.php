@@ -32,7 +32,7 @@ return new class extends Migration
             $table->integer('player_4_token', false, true)->nullable();
             $table->string('player_4_quote', 64)->nullable();
             //
-            $table->json('winners')->nullable();
+            $table->timestamp('finished_at')->nullable();
             //
             $table->json('data')->nullable();
             //

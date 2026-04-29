@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $player_4_token
  * @property string|null $player_4_quote
  * @property string|null $player_4_name
- * @property array|null $winners
  * @property array|null $data
+ * @property \Illuminate\Support\Carbon|null $finished_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \App\Models\User $owner
@@ -67,7 +67,7 @@ class GameHokm extends Model
         'player_4_quote',
         'player_4_name',
         'data',
-        'winners',
+        'finished_at',
     ];
 
     /**
@@ -77,7 +77,7 @@ class GameHokm extends Model
      */
     protected $casts = [
         'data' => 'array',
-        'winners' => 'array',
+        'finished_at' => 'datetime',
         'modified_at' => 'integer',
     ];
 

@@ -46,6 +46,7 @@ class GameHokmResource extends JsonResource
             'id' => $this->id,
             'player_index' => $currentPlayerIndex,
             'modified_at' => $this->modified_at,
+            'finished_at' => $this->finished_at,
         ];
 
         foreach ([GameHokmService::PLAYER_1, GameHokmService::PLAYER_2, GameHokmService::PLAYER_3, GameHokmService::PLAYER_4] as $playerIndex) {

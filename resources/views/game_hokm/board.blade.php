@@ -103,7 +103,7 @@
                                 <div class="carousel-inner mb-1">
                                     <div class="carousel-item active">
                                         <div class="carousel-caption rounded p-0 top-0 start-0 end-0 w-100"
-                                            x-show="hasWinners()">
+                                            x-show="isFinished()">
                                             <div x-text="isCirclePlayerWinner(1) ? '🏅' : ''"
                                                 class="d-flex justify-content-center align-items-center fs-1 position-absolute top-0 start-0 end-0 bottom-0 z-3">
                                             </div>
@@ -118,7 +118,7 @@
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
                                                 x-text="getCirclePlayerQuote(1)"
-                                                x-show="!hasWinners() && getCirclePlayerQuote(1)">
+                                                x-show="!isFinished() && getCirclePlayerQuote(1)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(1) ? 'text-bg-success border-success' :
@@ -142,7 +142,7 @@
                                 <div class="carousel-inner mb-1">
                                     <div class="carousel-item active">
                                         <div class="carousel-caption rounded p-0 top-0 start-0 end-0 w-100"
-                                            x-show="hasWinners()">
+                                            x-show="isFinished()">
                                             <div x-text="isCirclePlayerWinner(2) ? '🏅' : ''"
                                                 class="d-flex justify-content-center align-items-center fs-1 position-absolute top-0 start-0 end-0 bottom-0 z-3">
                                             </div>
@@ -157,7 +157,7 @@
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
                                                 x-text="getCirclePlayerQuote(2)"
-                                                x-show="!hasWinners() && getCirclePlayerQuote(2)">
+                                                x-show="!isFinished() && getCirclePlayerQuote(2)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(2) ? 'text-bg-success border-success' :
@@ -179,7 +179,7 @@
                                 <div class="carousel-inner mb-1">
                                     <div class="carousel-item active">
                                         <div class="carousel-caption rounded p-0 top-0 start-0 end-0 w-100"
-                                            x-show="hasWinners()">
+                                            x-show="isFinished()">
                                             <div x-text="isCirclePlayerWinner(0) ? '🏅' : ''"
                                                 class="d-flex justify-content-center align-items-center fs-0 position-absolute top-0 start-0 end-0 bottom-0 z-3">
                                             </div>
@@ -191,10 +191,10 @@
                                         <img x-bind:src="renderPlays(0)" class="bd-placeholder-img w-100 rounded"
                                             :class="(isHandSuitEmpty() ? 'opacity-25' : '')">
                                         <div class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient"
-                                            @click="if(!hasWinners()) { $dispatch('open-quote-modal') }">
+                                            @click="if(!isFinished()) { $dispatch('open-quote-modal') }">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
                                                 x-text="getCirclePlayerQuote(0)"
-                                                x-show="!hasWinners() && getCirclePlayerQuote(0)">
+                                                x-show="!isFinished() && getCirclePlayerQuote(0)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(0) ? 'text-bg-success border-success' :
@@ -219,7 +219,7 @@
                                 <div class="carousel-inner mb-1">
                                     <div class="carousel-item active">
                                         <div class="carousel-caption rounded p-0 top-0 start-0 end-0 w-100"
-                                            x-show="hasWinners()">
+                                            x-show="isFinished()">
                                             <div x-text="isCirclePlayerWinner(3) ? '🏅' : ''"
                                                 class="d-flex justify-content-center align-items-center fs-1 position-absolute top-0 start-0 end-0 bottom-0 z-3">
                                             </div>
@@ -234,7 +234,7 @@
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
                                                 x-text="getCirclePlayerQuote(3)"
-                                                x-show="!hasWinners() && getCirclePlayerQuote(3)">
+                                                x-show="!isFinished() && getCirclePlayerQuote(3)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(3) ? 'text-bg-success border-success' :
@@ -352,6 +352,7 @@
                 turn: null,
                 hand: null,
                 modified_at: null,
+                finished_at: null,
                 //
                 refreshInterval: null,
                 fetchStatus: 'OFF',
@@ -403,6 +404,7 @@
                 },
                 updateGameData(gameData) {
                     this.gameId = gameData.id;
+                    this.finished_at = gameData.finished_at;
                     this.winners = gameData.winners || [];
                     this.player = gameData.player;
                     this.player_index = gameData.player_index;
@@ -424,11 +426,11 @@
                         (this.hand_turn === player)
                     );
                 },
-                hasWinners() {
-                    return this.winners.length > 0;
+                isFinished() {
+                    return !!(this.finished_at);
                 },
                 isMyHandTurn() {
-                    return (this.isCircleHandTurn(0) && !this.hasWinners());
+                    return (this.isCircleHandTurn(0) && !this.isFinished());
                 },
                 isHandSuitEmpty() {
                     return !(this.hand && this.hand['suit']);
@@ -515,7 +517,7 @@
                         }
 
                         const data = await boardRes.json();
-                        if (data.data.game_hokm.winners.length > 0) {
+                        if (data.data.game_hokm.finished_at) {
                             clearInterval(this.refreshInterval);
                             this.fetchStatus = 'OFF';
                         } else {
@@ -524,7 +526,7 @@
 
                         this.updateGameData(data.data.game_hokm);
 
-                        isNewTurn = (this.hasWinners() || (this.turn &&
+                        isNewTurn = (this.isFinished() || (this.turn &&
                             !this.turn['suit'] &&
                             (this.turn['scores']['team_13'] || this.turn['scores']['team_24']) &&
                             (this.state === 'select_turn_suit')
