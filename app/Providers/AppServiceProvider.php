@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         });
         Blade::directive('endspaceless', function () {
             return "<?php echo trim(preg_replace('/>\s+</', '><', ob_get_clean())); ?>";
+        });
+        Builder::macro('page', function ($page = null, $perPage = null, $total = null, $pageName = 'page') {
+            return $this->paginate($perPage, ['*'], $pageName, $page, $total);
         });
     }
 }

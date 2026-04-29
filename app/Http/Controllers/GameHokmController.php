@@ -17,7 +17,7 @@ class GameHokmController extends Controller
         }
 
         $user = Auth::user();
-        $apiCollectionResponse = GameHokmService::new()->getApiCollection($user);
+        $apiCollectionResponse = GameHokmService::new()->index($user);
         $friendsResponse = UserService::new()->friends($user);
 
         return ApiResponse::new()->data([

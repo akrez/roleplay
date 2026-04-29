@@ -62,10 +62,10 @@ class GameHokmResource extends JsonResource
         $result += [
             'winners' => $this->winners,
             'token' => $this->{$currentPlayerIndex.'_token'},
-            'player' => [
+            'player' => (empty($data['players'][$currentPlayerIndex]) ? null : [
                 'name' => $data['players'][$currentPlayerIndex]['name'],
                 'username' => $data['players'][$currentPlayerIndex]['username'],
-            ],
+            ]),
         ];
 
         foreach ([GameHokmService::PLAYER_1, GameHokmService::PLAYER_2, GameHokmService::PLAYER_3, GameHokmService::PLAYER_4] as $playerIndex) {
