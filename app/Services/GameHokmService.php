@@ -58,7 +58,7 @@ class GameHokmService extends Service
 
         return ApiResponse::new()->data([
             'user' => (new UserResource($user))->toArray(),
-            'game_hokms' => (new GameHokmCollection($gameHokms))->withOwner()->setUserId($user->id)->toArray(),
+            'game_hokms' => (new GameHokmCollection($gameHokms))->setPurpose(GameHokmResource::PURPOSE_INDEX)->setUserId($user->id)->toArray(),
         ]);
     }
 
@@ -84,8 +84,7 @@ class GameHokmService extends Service
         $friends = User::query()
             ->whereIn('username', array_values($players))
             ->get()
-            ->pluck(null, 'username')
-            ->toArray();
+            ->pluck(null, 'username');
 
         $currentHandLeader = array_rand($players, 1);
 
@@ -123,10 +122,10 @@ class GameHokmService extends Service
 
         $i = 1;
         foreach ($players as $player => $playerUsername) {
-            if (array_key_exists($playerUsername, $friends)) {
-                $gameHokmData[$player.'_id'] = $friends[$playerUsername]['id'];
+            if (array_key_exists($playerUsername, $friends->toArray())) {
+                $gameHokmData[$player.'_id'] = $friends[$playerUsername]->id;
                 $gameHokmData[$player.'_token'] = $i.rand(10_000_000, 99_999_999);
-                $gameHokmData[$player.'_name'] = $friends[$playerUsername]['name'];
+                $gameHokmData['data']['players'][$player] = (new UserResource($friends[$playerUsername]))->toArray();
             } else {
                 return ApiResponse::new(406);
             }
@@ -162,8 +161,7 @@ class GameHokmService extends Service
         return ApiResponse::new()->data([
             'game_hokm' => (new GameHokmResource($gameHokm))
                 ->setUserId($gameHokm->$playerIdColumn)
-                ->withOwner(false)
-                ->withData(false)
+                ->setPurpose(GameHokmResource::PURPOSE_MODIFICATION)
                 ->toArray(),
         ]);
     }
@@ -182,7 +180,7 @@ class GameHokmService extends Service
         }
 
         return ApiResponse::new()->data([
-            'game_hokm' => (new GameHokmResource($gameHokm))->setUserId($gameHokm->$playerIdColumn)->withData()->toArray(),
+            'game_hokm' => (new GameHokmResource($gameHokm))->setUserId($gameHokm->$playerIdColumn)->setPurpose(GameHokmResource::PURPOSE_FULL)->toArray(),
         ]);
     }
 

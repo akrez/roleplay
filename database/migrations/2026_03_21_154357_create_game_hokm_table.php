@@ -18,22 +18,18 @@ return new class extends Migration
             //
             $table->foreignId('player_1_id')->nullable()->constrained('users')->restrictOnDelete();
             $table->integer('player_1_token', false, true)->nullable();
-            $table->string('player_1_name')->nullable();
             $table->string('player_1_quote', 64)->nullable();
             //
             $table->foreignId('player_2_id')->nullable()->constrained('users')->restrictOnDelete();
             $table->integer('player_2_token', false, true)->nullable();
-            $table->string('player_2_name')->nullable();
             $table->string('player_2_quote', 64)->nullable();
             //
             $table->foreignId('player_3_id')->nullable()->constrained('users')->restrictOnDelete();
             $table->integer('player_3_token', false, true)->nullable();
-            $table->string('player_3_name')->nullable();
             $table->string('player_3_quote', 64)->nullable();
             //
             $table->foreignId('player_4_id')->nullable()->constrained('users')->restrictOnDelete();
             $table->integer('player_4_token', false, true)->nullable();
-            $table->string('player_4_name')->nullable();
             $table->string('player_4_quote', 64)->nullable();
             //
             $table->json('winners')->nullable();

@@ -5,8 +5,8 @@
 @php
     $routeData = [
         'id' => $game_hokm['id'],
-        'player' => $game_hokm['player'],
-        'token' => $game_hokm['players'][$game_hokm['player']]['token'],
+        'player' => $game_hokm['player_index'],
+        'token' => $game_hokm['token'],
     ];
     $urls = [
         'modification' => route('api.game_hokms.modification', $routeData),
@@ -32,7 +32,7 @@
                             class="border border-dark border-1 w-100 text-bg-tertiary rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
                             <div class="d-flex flex-row col"></div>
                             <div class="d-flex flex-row col justify-content-center fs-7">
-                                <div class="" x-text="getCirclePlayerAttr(0, 'name')"></div>
+                                <div x-text="getCirclePlayerAttr(0, 'name')"></div>
                             </div>
                             <div class="d-flex flex-row col justify-content-end">
                                 <a href="{{ route('game_hokms.index') }}"
@@ -43,27 +43,25 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card border-success mb-1 fs-8">
-                            <div class="card-header text-bg-success p-1">
-                                <div class="text-truncate" x-text="players?.player_1.name"></div>
-                            </div>
-                            <div class="card-header text-bg-success p-1">
-                                <div class="text-truncate" x-text="players?.player_3.name"></div>
-                            </div>
-                            <div class="card-body p-0">
-                                <table class="table table-sm table-borderless m-0">
-                                    <tbody>
-                                        <tr class="border-bottom">
-                                            <td class="border-end">امتیاز کلی</td>
-                                            <td x-text="turn?.scores.team_13"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="rounded border-end">امتیاز دست</td>
-                                            <td class="rounded" x-text="hand?.scores.team_13"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="rounded overflow-hidden">
+                            <table class="table table-success border-dark table-sm m-0 fs-8">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bg-success" colspan="2" x-text="players?.player_1.name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bg-success" colspan="2" x-text="players?.player_3.name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>امتیاز کلی</td>
+                                        <td x-text="turn?.scores.team_13"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>امتیاز دست</td>
+                                        <td x-text="hand?.scores.team_13"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="col-4 d-flex flex-column justify-content-between">
@@ -73,27 +71,25 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card border-success mb-1 fs-8">
-                            <div class="card-header text-bg-success p-1">
-                                <div class="text-truncate" x-text="players?.player_2.name"></div>
-                            </div>
-                            <div class="card-header text-bg-success p-1">
-                                <div class="text-truncate" x-text="players?.player_4.name"></div>
-                            </div>
-                            <div class="card-body p-0">
-                                <table class="table table-sm table-borderless m-0">
-                                    <tbody>
-                                        <tr class="border-bottom">
-                                            <td class="border-end">امتیاز کلی</td>
-                                            <td x-text="turn?.scores.team_24"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="rounded border-end">امتیاز دست</td>
-                                            <td class="rounded" x-text="hand?.scores.team_24"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="rounded overflow-hidden">
+                            <table class="table table-success border-dark table-sm m-0 fs-8">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bg-success" colspan="2" x-text="players?.player_2.name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bg-success" colspan="2" x-text="players?.player_4.name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>امتیاز کلی</td>
+                                        <td x-text="turn?.scores.team_24"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>امتیاز دست</td>
+                                        <td x-text="hand?.scores.team_24"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -120,8 +116,8 @@
                                         <div
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
-                                                x-text="getCirclePlayerAttr(1, 'quote')"
-                                                x-show="!hasWinners() && getCirclePlayerAttr(1, 'quote')">
+                                                x-text="getCirclePlayerQuote(1)"
+                                                x-show="!hasWinners() && getCirclePlayerQuote(1)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(1) ? 'text-bg-success border-success' :
@@ -159,8 +155,8 @@
                                         <div
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
-                                                x-text="getCirclePlayerAttr(2, 'quote')"
-                                                x-show="!hasWinners() && getCirclePlayerAttr(2, 'quote')">
+                                                x-text="getCirclePlayerQuote(2)"
+                                                x-show="!hasWinners() && getCirclePlayerQuote(2)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(2) ? 'text-bg-success border-success' :
@@ -196,8 +192,8 @@
                                         <div class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient"
                                             @click="if(!hasWinners()) { $dispatch('open-quote-modal') }">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
-                                                x-text="getCirclePlayerAttr(0, 'quote')"
-                                                x-show="!hasWinners() && getCirclePlayerAttr(0, 'quote')">
+                                                x-text="getCirclePlayerQuote(0)"
+                                                x-show="!hasWinners() && getCirclePlayerQuote(0)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(0) ? 'text-bg-success border-success' :
@@ -236,8 +232,8 @@
                                         <div
                                             class="carousel-caption rounded-bottom p-0 bottom-0 start-0 end-0 w-100 cursor-pointer bg-gradient">
                                             <div class="m-0 p-1 pb-2 text-center fs-8 text-bg-dark border border-1 border-dark opacity-75"
-                                                x-text="getCirclePlayerAttr(3, 'quote')"
-                                                x-show="!hasWinners() && getCirclePlayerAttr(3, 'quote')">
+                                                x-text="getCirclePlayerQuote(3)"
+                                                x-show="!hasWinners() && getCirclePlayerQuote(3)">
                                             </div>
                                             <div class="m-0 p-1 pt-2 position-relative border border-1 rounded-bottom"
                                                 :class="isCircleHandTurn(3) ? 'text-bg-success border-success' :
@@ -284,47 +280,50 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="modal" tabindex="-1" x-data
-            @open-quote-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.show(); "
-            @close-quote-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.hide(); ">
-            <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row mb-1">
-                            <div class="col-12 d-flex">
-                                <div class="input-group flex-fill me-1">
-                                    <button class="btn btn-success p-2" @click="sendQuote(quote);"
-                                        :disabled="isSendingQuote || (quote.length > 64)">
-                                        <i class="bi-chevron-right"></i>
-                                    </button>
-                                    <input type="text" class="form-control text-center p-2 pb-1" x-model="quote">
-                                </div>
-                                <button class="btn btn-danger p-1 px-2" @click="setQuote('');"
-                                    :disabled="isSendingQuote">
-                                    <i class="bi-eraser"></i>
+                <div class="modal" tabindex="-1" x-data
+                    @open-quote-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.show(); "
+                    @close-quote-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.hide(); ">
+                    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
                                 </button>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 text-start fs-7">
-                                <span x-text="quote.length"
-                                    :class="quote.length > 64 ? 'text-danger' : 'text-warning'"></span>
-                                <span>/</span>
-                                <span class="text-success" x-text="64"></span>
+                            <div class="modal-body pb-0 overflow-visible">
+                                <div class="row mb-1">
+                                    <div class="col-12 d-flex">
+                                        <div class="input-group flex-fill me-1">
+                                            <button class="btn btn-success p-2" @click="sendQuote(quote);"
+                                                :disabled="isSendingQuote || !isQuoteLengthValid()">
+                                                <i class="bi-chevron-right"></i>
+                                            </button>
+                                            <input type="text" class="form-control text-center p-2 pb-1"
+                                                x-model="quote">
+                                        </div>
+                                        <button class="btn btn-danger p-1 px-2" @click="setQuote('');"
+                                            :disabled="isSendingQuote">
+                                            <i class="bi-eraser"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-start fs-7">
+                                        <span x-text="getQuoteLength()"
+                                            :class="isQuoteLengthValid() ? 'text-warning' : 'text-danger'"></span>
+                                        <span>/</span>
+                                        <span class="text-success" x-text="max_quote_length"></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 text-center g-1">
-                                <template x-for="oldQuote in oldQuotes">
-                                    <div class="d-inline-block rounded fs-6 max-width-100 text-bg-secondary cursor-pointer p-1 text-truncated m-1"
-                                        x-text="oldQuote" @click="setQuote(oldQuote);"></div>
-                                </template>
+                            <div class="modal-body pt-0">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <template x-for="oldQuote in oldQuotes">
+                                            <div class="d-inline-block rounded fs-6 max-width-100 text-bg-secondary cursor-pointer p-1 text-truncated m-1"
+                                                x-text="oldQuote" @click="setQuote(oldQuote);"></div>
+                                        </template>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +340,9 @@
                 gameId: null,
                 winners: [],
                 player: null,
+                player_index: null,
                 players: null,
+                player_quotes: null,
                 player_deck: [],
                 hand_turn: null,
                 plays: [],
@@ -358,6 +359,7 @@
                 isSendingQuote: false,
                 quote: null,
                 oldQuotes: [],
+                max_quote_length: 64,
                 //
                 suits: {
                     'spade': {
@@ -382,17 +384,29 @@
                     this.fetchGameData();
                     this.refreshInterval = setInterval(() => this.fetchGameData(), 3000);
                 },
+                getQuoteLength() {
+                    if (!this.quote) {
+                        return 0;
+                    }
+
+                    return this.quote.length;
+                },
+                isQuoteLengthValid() {
+                    return this.getQuoteLength() <= this.max_quote_length;
+                },
                 updateGameModification(gameData) {
-                    this.gameId = gameData.id;
-                    this.winners = gameData.winners || [];
-                    this.player = gameData.player;
-                    this.players = gameData.players || [];
-                    this.modified_at = gameData.modified_at;
+                    this.player_quotes = gameData.player_quotes || [];
                     if (this.quote === null) {
-                        this.quote = this.getCirclePlayerAttr(0, 'quote');
+                        this.quote = this.getCirclePlayerQuote(0);
                     }
                 },
                 updateGameData(gameData) {
+                    this.gameId = gameData.id;
+                    this.winners = gameData.winners || [];
+                    this.player = gameData.player;
+                    this.player_index = gameData.player_index;
+                    this.players = gameData.players || [];
+                    this.modified_at = gameData.modified_at;
                     this.player_deck = gameData.player_deck || [];
                     this.hand_turn = gameData.hand_turn;
                     this.plays = gameData.plays || [];
@@ -541,11 +555,20 @@
                     }
                     return defaultValue;
                 },
+                getCirclePlayerQuote(circleIndex) {
+                    if (
+                        this.player_quotes &&
+                        (player = this.circleIndexToPlayer(circleIndex))
+                    ) {
+                        return this.player_quotes[player];
+                    }
+                    return '';
+                },
                 circleIndexToPlayer(circleIndex, prefix = "player_") {
                     if (this.player === null) {
                         return null;
                     }
-                    playerIndex = parseInt(this.player.replace("player_", ""), 10);
+                    playerIndex = parseInt(this.player_index.replace("player_", ""), 10);
                     player = 1 + ((3 + playerIndex + circleIndex) % 4);
                     return prefix + player;
                 },
@@ -624,7 +647,7 @@
                         });
 
                         if (res.ok) {
-                            this.players[this.circleIndexToPlayer(0)]['quote'] = quote;
+                            this.player_quotes[this.circleIndexToPlayer(0)] = quote;
                             this.$dispatch('close-quote-modal');
                             this.quote = quote;
                             if (quote) {

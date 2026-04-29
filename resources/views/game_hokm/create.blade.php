@@ -307,9 +307,9 @@
                     getGameLink(game, playerIndex) {
                         url = null;
                         ['player_1', 'player_2', 'player_3', 'player_4'].forEach((playerIndex) => {
-                            if (game.players[playerIndex].token) {
+                            if (game.player_index == playerIndex) {
                                 url = this.urls['game_hokms']['index'] + '/' +
-                                    game.id + '/board/' + playerIndex + '/' + game.players[playerIndex].token;
+                                    game.id + '/board/' + playerIndex + '/' + game.token;
                             }
                         });
                         return url;

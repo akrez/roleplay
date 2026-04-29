@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class GameHokmCollection extends ResourceCollection
 {
-    protected bool $withOwner = false;
-
-    protected bool $withData = false;
+    protected ?string $purpose = null;
 
     protected ?int $userId = null;
 
@@ -20,16 +18,9 @@ class GameHokmCollection extends ResourceCollection
         return $this;
     }
 
-    public function withData($withData = true)
+    public function setPurpose(?string $purpose)
     {
-        $this->withData = $withData;
-
-        return $this;
-    }
-
-    public function withOwner($withOwner = true)
-    {
-        $this->withOwner = $withOwner;
+        $this->purpose = $purpose;
 
         return $this;
     }
@@ -38,7 +29,7 @@ class GameHokmCollection extends ResourceCollection
     {
         $result = [];
         foreach ($this->collection as $gameHokmResource) {
-            $result[] = $gameHokmResource->withOwner($this->withOwner)->setUserId($this->userId)->toArray($request);
+            $result[] = $gameHokmResource->setPurpose($this->purpose)->setUserId($this->userId)->toArray($request);
         }
 
         return $result;
