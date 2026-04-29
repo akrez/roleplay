@@ -29,9 +29,9 @@
                     text-center p-3">
                 <div class="row">
 
-                    <div class="col-12 mb-1">
+                    <div class="col-12">
                         <div
-                            class="border border-dark border-1 w-100 bg-success-subtle rounded mb-1 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch text-center">
+                            class="border border-dark border-1 w-100 bg-success-subtle rounded mb-3 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch text-center">
                             <div class="d-flex flex-row col justify-content-end align-items-center"></div>
                             <div class="d-flex flex-column col justify-content-end align-items-center">
                                 <div class="fs-7" x-text="user?.name"></div>
@@ -49,20 +49,26 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-2">
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                نام یا نام کاربری
-                            </span>
-                            <input type="text" class="form-control " x-model="indexUsersData.filter">
-                            <button class="btn text-bg-light" @click="indexUsers()"
-                                :disabled="indexUsersData.isIndexingUsers">
-                                <i :class="indexUsersData.isIndexingUsers ? 'bi-clock' : 'bi-search'"></i>
-                            </button>
+                    <div class="col-12 mb-1">
+                        <div class="row g-0">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-8">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        نام یا نام کاربری
+                                    </span>
+                                    <input type="text" class="form-control " x-model="indexUsersData.filter">
+                                    <button class="btn text-bg-light" @click="indexUsers()"
+                                        :disabled="indexUsersData.isIndexingUsers">
+                                        <i :class="indexUsersData.isIndexingUsers ? 'bi-clock' : 'bi-search'"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-12 mb-2">
+                    <div class="col-12 mb-1">
                         <div class="row g-0">
                             <div class="col-3">
                             </div>
@@ -223,7 +229,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-2">
+                    <div class="col-12 mb-3">
                         <div class="row g-0">
                             <div class="col-3">
                             </div>
@@ -245,30 +251,50 @@
 
                     <div class="col-12 mb-1">
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-sm m-0">
-                                <tbody>
-                                    <template x-for="game in indexGamesData.games">
-                                        <tr>
-                                            <template
-                                                x-for="playerIndex in ['player_1', 'player_2', 'player_3', 'player_4']">
-                                                <td>
-                                                    <div class="btn w-100 p-1 fs-7"
-                                                        x-text="game.players[playerIndex].name">
-                                                    </div>
-                                                </td>
-                                            </template>
-                                            <td>
-                                                <a class="btn btn-outline-dark w-100 p-1 fs-7" x-show="getGameLink(game)"
-                                                    x-bind:href="getGameLink(game)">
-                                                    <i class="bi-door-open"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
-                        </div>
+                        <template x-for="game in indexGamesData.games">
+                            <div class="row d-flex justify-content-center fs-6 mb-3">
+                                <div class="col-10">
+                                    <div class="row g-1">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="text-bg-light rounded w-100 p-1"
+                                                x-text="game.players['player_1'].name">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="text-bg-light rounded w-100 p-1"
+                                                x-text="game.players['player_4'].name">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <a class="btn btn-info w-100 p-1 fs-6" x-show="getGameLink(game)"
+                                                x-bind:href="getGameLink(game)">
+                                                <i class="bi-door-open"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="text-bg-light rounded w-100 p-1"
+                                                x-text="game.players['player_2'].name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="text-bg-light rounded w-100 p-1"
+                                                x-text="game.players['player_3'].name">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
 
                 </div>
