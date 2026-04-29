@@ -29,14 +29,15 @@
                 <div class="row g-1">
                     <div class="col-12">
                         <div
-                            class="border border-dark border-1 w-100 text-bg-tertiary rounded mb-1 p-2 d-flex flex-row justify-content-between align-items-center text-center">
-                            <div class="d-flex flex-row col"></div>
-                            <div class="d-flex flex-row col justify-content-center fs-7">
-                                <div x-text="getCirclePlayerAttr(0, 'name')"></div>
+                            class="border border-dark border-1 w-100 text-bg-tertiary rounded mb-1 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch text-center">
+                            <div class="d-flex flex-row col justify-content-end align-items-center"></div>
+                            <div class="d-flex flex-column col justify-content-end align-items-center">
+                                <div class="fs-7" x-text="player?.name"></div>
+                                <div class="fs-8" x-text="player?.username"></div>
                             </div>
-                            <div class="d-flex flex-row col justify-content-end">
+                            <div class="d-flex flex-row col justify-content-end align-items-center">
                                 <a href="{{ route('game_hokms.index') }}"
-                                    class="fs-8 rounded text-muted text-decoration-none text-dark">
+                                    class="fs-8 rounded text-decoration-none text-dark">
                                     بازگشت
                                 </a>
                             </div>
