@@ -20,7 +20,7 @@
 @endphp
 
 @section('content')
-     <div class="container-fluid user-select-none flex-fill bg-black" x-data="gameData()" x-init="initData({{ json_encode($initData) }})"
+    <div class="container-fluid user-select-none flex-fill bg-black" x-data="gameData()" x-init="initData({{ json_encode($initData) }})"
         x-transition>
         <div class="row h-100">
             <div style="background-image: url('{{ $initData['urls']['assets']['bg'] }}'); background-repeat: repeat; background-position: center;"
@@ -28,6 +28,26 @@
                     d-flex flex-column justify-content-between
                     text-center p-3">
                 <div class="row">
+
+                    <div class="col-12 mb-1">
+                        <div
+                            class="border border-dark border-1 w-100 bg-success-subtle rounded mb-1 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch text-center">
+                            <div class="d-flex flex-row col justify-content-end align-items-center"></div>
+                            <div class="d-flex flex-column col justify-content-end align-items-center">
+                                <div class="fs-7" x-text="user?.name"></div>
+                                <div class="fs-8" x-text="user?.username"></div>
+                            </div>
+                            <div class="d-flex flex-row col justify-content-end align-items-center">
+                                <a class="fs-8 rounded text-decoration-none text-dark" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-12 mb-2">
                         <div class="input-group">
@@ -91,7 +111,7 @@
                                         :class="{ 'rounded-bottom-0': createData.show.player_4 }"
                                         @click="createData.show.player_4=!createData.show.player_4; createData.lastShow='player_4';"
                                         :disabled="!createData.player_4">
-                                        <i :class="createData.show.player_4 ? 'bi-chevron-down' : 'bi-chevron-left'"></i> 
+                                        <i :class="createData.show.player_4 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
                                     </span>
                                     <span class="input-group-text flex-column text-center flex-grow-1 p-1"
                                         :class="{ 'rounded-bottom-0': createData.show.player_4 }"
@@ -128,7 +148,7 @@
                                         :class="{ 'rounded-bottom-0': createData.show.player_2 }"
                                         @click="createData.show.player_2=!createData.show.player_2; createData.lastShow='player_2';"
                                         :disabled="!createData.player_2">
-                                        <i :class="createData.show.player_2 ? 'bi-chevron-down' : 'bi-chevron-left'"></i> 
+                                        <i :class="createData.show.player_2 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
                                     </span>
                                     <span class="input-group-text flex-column text-center flex-grow-1 p-1"
                                         :class="{ 'rounded-bottom-0': createData.show.player_2 }"
@@ -169,7 +189,7 @@
                                         :class="{ 'rounded-bottom-0': createData.show.player_3 }"
                                         @click="createData.show.player_3=!createData.show.player_3; createData.lastShow='player_3';"
                                         :disabled="!createData.player_3">
-                                        <i :class="createData.show.player_3 ? 'bi-chevron-down' : 'bi-chevron-left'"></i> 
+                                        <i :class="createData.show.player_3 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
                                     </span>
                                     <span class="input-group-text flex-column text-center flex-grow-1 p-1"
                                         :class="{ 'rounded-bottom-0': createData.show.player_3 }"
