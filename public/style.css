@@ -68,23 +68,6 @@ body {
     vertical-align: middle !important;
 }
 
-.text-tertiary {
-    color: rgb(43, 48, 53) !important;
-}
-
-.bg-tertiary {
-    background-color: rgb(222, 226, 230) !important;
-}
-
-.text-bg-tertiary {
-    color: rgb(43, 48, 53) !important;
-    background-color: rgb(222, 226, 230) !important;
-}
-
-.border-tertiary {
-    border-color: rgb(43, 48, 53) !important;
-}
-
 .max-width-100 {
     max-width: 100%;
 }
