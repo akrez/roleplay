@@ -249,25 +249,58 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-1">
+                    <div class="col-12 mb-3">
+
+                        <div class="row">
+
+                            <div class="col-12 mb-3">
+                                <nav x-show="paginator" class="d-flex justify-content-center">
+                                    <ul class="pagination m-0">
+                                        <li class="page-item" :class="{ disabled: paginator?.currentPage <= 1 }">
+                                            <button class="page-link" @click="indexGames(paginator?.currentPage - 1)"
+                                                :disabled="paginator?.currentPage <= 1">
+                                                قبلی
+                                            </button>
+                                        </li>
+                                        <li class="page-item">
+                                            <button class="page-link" x-text="paginator?.currentPage">
+                                            </button>
+                                        </li>
+                                        <li class="page-item"
+                                            :class="{ disabled: paginator?.totalPages <= paginator?.currentPage }">
+                                            <button class="page-link" @click="indexGames(1 + paginator?.currentPage)"
+                                                :disabled="paginator?.totalPages <= paginator?.currentPage">
+                                                بعدی
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
 
                         <template x-for="game in indexGamesData.games">
-                            <div class="row d-flex justify-content-center fs-6 mb-3">
-                                <div class="col-10">
+                            <div class="row d-flex justify-content-center fs-6 mb-2 text-bg-light rounded p-1">
+                                <div class="col-4 m-0 g-1 d-flex flex-column justify-content-center">
+                                    <div>
+                                        <div class="fs-8">ایجاد شده در</div>
+                                        <div class="fs-8 fw-bold" x-text="game?.created_at?.fa"></div>
+                                        <div class="fs-8">اخرین حرکت در</div>
+                                        <div class="fs-8 fw-bold" x-text="game?.modified_at?.fa"></div>
+                                    </div>
+                                </div>
+                                <div class="col-8 m-0 g-1 d-flex flex-column justify-content-center">
                                     <div class="row g-1">
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="text-bg-light rounded w-100 p-1"
-                                                x-text="game.players['player_1'].name">
+                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_1'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                         </div>
 
-                                        <div class="col-4">
-                                            <div class="text-bg-light rounded w-100 p-1"
-                                                x-text="game.players['player_4'].name">
+                                        <div class="col-4 d-flex align-items-center">
+                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_4'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -276,17 +309,15 @@
                                                 <i class="bi-door-open"></i>
                                             </a>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="text-bg-light rounded w-100 p-1"
-                                                x-text="game.players['player_2'].name">
+                                        <div class="col-4 d-flex align-items-center">
+                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_2'].name">
                                             </div>
                                         </div>
 
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="text-bg-light rounded w-100 p-1"
-                                                x-text="game.players['player_3'].name">
+                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_3'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -309,6 +340,7 @@
                     gameData: [],
                     user: null,
                     urls: null,
+                    paginator: null,
                     resetIndexUsersData() {
                         this.indexUsersData = {
                             isIndexingUsers: false,
@@ -363,12 +395,16 @@
                     addPlayer(player, user) {
                         this.createData[player] = user;
                     },
-                    async indexGames() {
+                    async indexGames(page = 1) {
                         try {
                             if (this.indexGamesData.isIndexingGames) return;
                             this.indexGamesData.isIndexingGames = true;
 
-                            const gamesRes = await fetch(this.urls['game_hokms']['index'], {
+                            const params = new URLSearchParams({
+                                page: page,
+                            });
+
+                            const gamesRes = await fetch(this.urls['game_hokms']['index'] + '?' + params.toString(), {
                                 method: 'GET',
                                 headers: {
                                     'Accept': 'application/json',
@@ -380,6 +416,10 @@
 
                             if (gamesRes.ok) {
                                 this.indexGamesData.games = gamesResJson.data.game_hokms;
+                                this.paginator = gamesResJson.paginator;
+                                this.paginator.totalPages = Math.ceil(
+                                    gamesResJson.paginator.total / gamesResJson.paginator.perPage
+                                );
                                 this.user = gamesResJson.data.user;
                             } else {
                                 this.alertError(gamesResJson.message);

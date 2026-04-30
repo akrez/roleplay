@@ -351,8 +351,8 @@
                 state: null,
                 turn: null,
                 hand: null,
-                modified_at: null,
-                finished_at: null,
+                modified_in: null,
+                finished_in: null,
                 //
                 refreshInterval: null,
                 fetchStatus: 'OFF',
@@ -404,12 +404,12 @@
                 },
                 updateGameData(gameData) {
                     this.gameId = gameData.id;
-                    this.finished_at = gameData.finished_at;
+                    this.finished_in = gameData.finished_in;
                     this.winners = gameData.winners || [];
                     this.player = gameData.player;
                     this.player_index = gameData.player_index;
                     this.players = gameData.players || [];
-                    this.modified_at = gameData.modified_at;
+                    this.modified_in = gameData.modified_in;
                     this.player_deck = gameData.player_deck || [];
                     this.hand_turn = gameData.hand_turn;
                     this.plays = gameData.plays || [];
@@ -427,7 +427,7 @@
                     );
                 },
                 isFinished() {
-                    return !!(this.finished_at);
+                    return !!(this.finished_in);
                 },
                 isMyHandTurn() {
                     return (this.isCircleHandTurn(0) && !this.isFinished());
@@ -499,7 +499,7 @@
                         }
 
                         const modificationData = await modificationRes.json();
-                        if (modificationData.data.game_hokm.modified_at == this.modified_at) {
+                        if (modificationData.data.game_hokm.modified_in == this.modified_in) {
                             this.updateGameModification(modificationData.data.game_hokm);
                             this.fetchStatus = 'CONNECTED';
                             return;
@@ -517,7 +517,7 @@
                         }
 
                         const data = await boardRes.json();
-                        if (data.data.game_hokm.finished_at) {
+                        if (data.data.game_hokm.finished_in) {
                             clearInterval(this.refreshInterval);
                             this.fetchStatus = 'OFF';
                         } else {
