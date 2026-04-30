@@ -32,11 +32,11 @@ return new class extends Migration
             $table->integer('player_4_token', false, true)->nullable();
             $table->string('player_4_quote', 64)->nullable();
             //
-            $table->timestamp('finished_at')->nullable();
+            $table->unsignedBigInteger('finished_in')->nullable();
             //
             $table->json('data')->nullable();
             //
-            $table->bigInteger('modified_at')->nullable();
+            $table->unsignedBigInteger('modified_in')->nullable();
             //
             $table->timestamps();
             //

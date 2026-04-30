@@ -13,11 +13,11 @@ class JsonResource extends \Illuminate\Http\Resources\Json\JsonResource
         return (array) @json_decode(json_encode(parent::toArray($request ?? request())), true);
     }
 
-    public function formatCarbonDateTime(?Carbon $date)
+    public function formatCarbonDateTime(?Carbon $date, string $format = 'Y-m-d H:i')
     {
         return $date ? [
-            'en' => $date->format('Y-m-d H:i:s'),
-            'fa' => (new Verta($date->getTimestamp()))->format('Y-m-d H:i:s'),
+            'en' => $date->format($format),
+            'fa' => (new Verta($date->getTimestamp()))->format($format),
         ] : null;
     }
 

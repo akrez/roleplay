@@ -12,19 +12,19 @@ class GameHokmController extends Controller
 {
     public function index(Request $request)
     {
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
             return view('game_hokm.create');
         }
 
         $user = Auth::user();
-        $apiCollectionResponse = GameHokmService::new()->index($user);
+        $apiCollectionResponse = GameHokmService::new()->index($user, $request->query('page'));
         $friendsResponse = UserService::new()->friends($user);
 
         return ApiResponse::new()->data([
             'user' => $apiCollectionResponse->getData('user'),
             'friends' => $friendsResponse->getData('users'),
             'game_hokms' => $apiCollectionResponse->getData('game_hokms'),
-        ]);
+        ])->paginator($apiCollectionResponse->getPaginator());
     }
 
     public function store(Request $request)

@@ -43,7 +43,7 @@ class GameHokmService extends Service
         return app(self::class);
     }
 
-    public function getApiCollection(User $user): ApiResponse
+    public function index(User $user, ?int $page = 1): ApiResponse
     {
         $gameHokms = GameHokm::where(function ($query) use ($user) {
             $query
@@ -54,12 +54,15 @@ class GameHokmService extends Service
                 ->orWhere('owner_id', $user->id);
         })
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->page($page, 4);
 
         return ApiResponse::new()->data([
             'user' => (new UserResource($user))->toArray(),
-            'game_hokms' => (new GameHokmCollection($gameHokms))->setPurpose(GameHokmResource::PURPOSE_INDEX)->setUserId($user->id)->toArray(),
-        ]);
+            'game_hokms' => (new GameHokmCollection($gameHokms))
+                ->setPurpose(GameHokmResource::PURPOSE_INDEX)
+                ->setUserId($user->id)
+                ->toArray(),
+        ])->paginator($gameHokms);
     }
 
     public function create(User $user, $player1Username, $player2Username, $player3Username, $player4Username)
@@ -148,11 +151,11 @@ class GameHokmService extends Service
         $playerIdColumn = $player.'_id';
 
         $gameHokm = GameHokm::query()->select([
-            'id', 'modified_at',
-            'player_1_id', 'player_1_token', 'player_1_name', 'player_1_quote',
-            'player_2_id', 'player_2_token', 'player_2_name', 'player_2_quote',
-            'player_3_id', 'player_3_token', 'player_3_name', 'player_3_quote',
-            'player_4_id', 'player_4_token', 'player_4_name', 'player_4_quote',
+            'id', 'modified_in',
+            'player_1_id', 'player_1_token', 'player_1_quote',
+            'player_2_id', 'player_2_token', 'player_2_quote',
+            'player_3_id', 'player_3_token', 'player_3_quote',
+            'player_4_id', 'player_4_token', 'player_4_quote',
         ])->where($playerTokenColumn, $token)->find($id);
         if (! $gameHokm) {
             return ApiResponse::new(404);
@@ -195,7 +198,7 @@ class GameHokmService extends Service
         }
 
         $gameHokm = GameHokm::query()->select([
-            'id', 'modified_at',
+            'id', 'modified_in',
             'player_1_id', 'player_1_token', 'player_1_name', 'player_1_quote',
             'player_2_id', 'player_2_token', 'player_2_name', 'player_2_quote',
             'player_3_id', 'player_3_token', 'player_3_name', 'player_3_quote',
@@ -205,7 +208,7 @@ class GameHokmService extends Service
             return ApiResponse::new(404);
         }
 
-        if ($gameHokm->finished_at) {
+        if ($gameHokm->finished_in) {
             return ApiResponse::new(406);
         }
 
@@ -242,7 +245,7 @@ class GameHokmService extends Service
             return ApiResponse::new(404);
         }
 
-        if ($gameHokm->finished_at) {
+        if ($gameHokm->finished_in) {
             return ApiResponse::new(406);
         }
 
@@ -287,7 +290,7 @@ class GameHokmService extends Service
                     if ($newGameScore) {
                         $data['winners'] = $newGameScore;
                         $gameHokm->data = $data;
-                        $gameHokm->finished_at = now();
+                        $gameHokm->finished_in = now()->unix();
                         $gameHokm->save();
 
                         return ApiResponse::new(200);

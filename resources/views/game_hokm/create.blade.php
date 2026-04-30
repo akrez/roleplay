@@ -29,7 +29,7 @@
                     text-center p-3">
                 <div class="row">
 
-                    <div class="col-12">
+                    <div class="col-12 sticky-top">
                         <div
                             class="border border-dark border-1 w-100 bg-success-subtle rounded mb-3 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch text-center">
                             <div class="d-flex flex-row col justify-content-end align-items-center"></div>
@@ -249,11 +249,10 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-3">
+                    <div class="col-12">
 
                         <div class="row">
-
-                            <div class="col-12 mb-3">
+                            <div class="col-12 mb-2">
                                 <nav x-show="paginator" class="d-flex justify-content-center">
                                     <ul class="pagination m-0">
                                         <li class="page-item" :class="{ disabled: paginator?.currentPage <= 1 }">
@@ -279,45 +278,43 @@
                         </div>
 
                         <template x-for="game in indexGamesData.games">
-                            <div class="row d-flex justify-content-center fs-6 mb-2 text-bg-light rounded p-1">
-                                <div class="col-4 m-0 g-1 d-flex flex-column justify-content-center">
-                                    <div>
+                            <div class="row d-flex justify-content-center mb-2 bg-linear-gradient rounded g-0">
+                                <div class="col-4 d-flex flex-column justify-content-center">
+                                    <div class="p-1">
                                         <div class="fs-8">ایجاد شده در</div>
                                         <div class="fs-8 fw-bold" x-text="game?.created_at?.fa"></div>
                                         <div class="fs-8">اخرین حرکت در</div>
                                         <div class="fs-8 fw-bold" x-text="game?.modified_at?.fa"></div>
                                     </div>
                                 </div>
-                                <div class="col-8 m-0 g-1 d-flex flex-column justify-content-center">
-                                    <div class="row g-1">
+                                <div class="col-8">
+                                    <div class="row g-1 p-1">
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_1'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_1'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                         </div>
-
                                         <div class="col-4 d-flex align-items-center">
-                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_4'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_4'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
-                                            <a class="btn btn-info w-100 p-1 fs-6" x-show="getGameLink(game)"
+                                            <a class="rounded w-100 p-1 d-block border border-primary text-bg-info fs-8" x-show="getGameLink(game)"
                                                 x-bind:href="getGameLink(game)">
                                                 <i class="bi-door-open"></i>
                                             </a>
                                         </div>
                                         <div class="col-4 d-flex align-items-center">
-                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_2'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_2'].name">
                                             </div>
                                         </div>
-
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="rounded w-100 p-1 border" x-text="game.players['player_3'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_3'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -326,6 +323,7 @@
                                 </div>
                             </div>
                         </template>
+
                     </div>
 
                 </div>

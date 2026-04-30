@@ -6,6 +6,7 @@ use App\Http\Resources\JsonResource;
 use App\Http\Resources\User\UserResource;
 use App\Services\GameHokmService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class GameHokmResource extends JsonResource
 {
@@ -45,8 +46,8 @@ class GameHokmResource extends JsonResource
         $result = [
             'id' => $this->id,
             'player_index' => $currentPlayerIndex,
-            'modified_at' => $this->modified_at,
-            'finished_at' => $this->finished_at,
+            'modified_in' => $this->modified_in,
+            'finished_in' => $this->finished_in,
         ];
 
         foreach ([GameHokmService::PLAYER_1, GameHokmService::PLAYER_2, GameHokmService::PLAYER_3, GameHokmService::PLAYER_4] as $playerIndex) {
@@ -60,6 +61,9 @@ class GameHokmResource extends JsonResource
         $data = $this->resource->data;
 
         $result += [
+            'created_at' => $this->formatCarbonDateTime($this->created_at),
+            'modified_at' => ($this->modified_in ? $this->formatCarbonDateTime(Carbon::createFromTimestamp($this->modified_in)) : null),
+            'finished_at' => ($this->finished_in ? $this->formatCarbonDateTime(Carbon::createFromTimestamp($this->finished_in)) : null),
             'winners' => $this->winners,
             'token' => $this->{$currentPlayerIndex.'_token'},
             'player' => (empty($data['players'][$currentPlayerIndex]) ? null : [
@@ -75,7 +79,7 @@ class GameHokmResource extends JsonResource
         }
 
         if ($this->purpose == self::PURPOSE_INDEX) {
-            $result['owner'] = (new UserResource($this->resource->owner));
+            $result['owner'] = (new UserResource($this->resource->owner))->toArray();
 
             return $result;
         }

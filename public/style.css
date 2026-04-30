@@ -71,3 +71,6 @@ body {
 .max-width-100 {
     max-width: 100%;
 }
+.bg-linear-gradient {
+    background: linear-gradient(to right, transparent, #f0f0f0);
+}

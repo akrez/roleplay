@@ -122,7 +122,7 @@ class ApiResponse implements Responsable
         return $this;
     }
 
-    public function getPaginator($path, $itemsDataKey = null, $pageName = 'page'): null|Paginator|LengthAwarePaginator
+    public function getPaginator($path = '', $itemsDataKey = null, $pageName = 'page'): null|Paginator|LengthAwarePaginator
     {
         if (! $this->paginator) {
             return null;
@@ -157,9 +157,9 @@ class ApiResponse implements Responsable
             'data' => $this->getData(),
             'errors' => ($this->getErrors() instanceof MessageBag ? $this->getErrors()->toArray() : []),
             'paginator' => ($this->paginator ? [
-                'perPage' => $this->paginator['perPage'],
-                'currentPage' => $this->paginator['currentPage'],
-                'total' => $this->paginator['total'],
+                'perPage' => $this->paginator['parameters']['perPage'],
+                'currentPage' => $this->paginator['parameters']['currentPage'],
+                'total' => $this->paginator['parameters']['total'],
             ] : null),
         ], $this->getStatus());
     }
