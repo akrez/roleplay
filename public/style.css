@@ -72,5 +72,5 @@ body {
     max-width: 100%;
 }
 .bg-linear-gradient {
-    background: linear-gradient(0deg, transparent, #f0f0f0);
+    background-image: linear-gradient(90deg, transparent, #f0f0f0);
 }
