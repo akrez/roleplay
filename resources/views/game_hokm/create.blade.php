@@ -49,202 +49,239 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-1">
-                        <div class="row g-0">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-8">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        نام یا نام کاربری
-                                    </span>
-                                    <input type="text" class="form-control " x-model="indexUsersData.filter">
-                                    <button class="btn text-bg-light" @click="indexUsers()"
-                                        :disabled="indexUsersData.isIndexingUsers">
-                                        <i :class="indexUsersData.isIndexingUsers ? 'bi-clock' : 'bi-search'"></i>
-                                    </button>
+                    <div class="modal fade" tabindex="-1" x-data
+                        @open-create-game-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.show(); "
+                        @close-create-game-modal.window=" const m = bootstrap.Modal.getOrCreateInstance($el); m.hide(); ">
+                        <div class="modal-dialog modal-dialog-scrollable mt-2">
+                            <div class="modal-content overflow-visible">
+                                <div class="modal-header">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            نام یا نام کاربری
+                                        </span>
+                                        <input type="text" class="form-control text-center" x-model="indexUsersData.filter">
+                                        <button class="btn text-bg-light border" @click="indexUsers()"
+                                            :disabled="indexUsersData.isIndexingUsers">
+                                            <i :class="indexUsersData.isIndexingUsers ? 'bi-clock' : 'bi-search'"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal-body overflow-visible">
+
+                                    <div class="row g-0">
+                                        <div class="col-3">
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <div class="input-group cursor-pointer"
+                                                @click.outside="createData.show.player_1=false">
+                                                <span class="input-group-text p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_1 }"
+                                                    @click="createData.show.player_1=!createData.show.player_1; createData.lastShow='player_1';"
+                                                    :disabled="!createData.player_1">
+                                                    <i
+                                                        :class="createData.show.player_1 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
+                                                </span>
+                                                <span class="input-group-text flex-column text-center flex-grow-1 p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_1 }"
+                                                    @click="createData.show.player_1=!createData.show.player_1; createData.lastShow='player_1';">
+                                                    <div class="m-0 p-0 text-truncate fs-7"
+                                                        x-text="createData.player_1 ? createData.player_1.name : 'ㅤ'">
+                                                    </div>
+                                                    <div class="m-0 p-0 text-truncate fs-8"
+                                                        x-text="createData.player_1 ? createData.player_1.username : 'ㅤ'">
+                                                    </div>
+                                                </span>
+                                                <button class="btn btn-danger p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_1 }"
+                                                    :disabled="!createData.player_1" @click="createData.player_1 = null">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="position-relative">
+                                                <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
+                                                    x-show="createData.show.player_1">
+                                                    <template x-for="user in indexUsersData.users">
+                                                        <li class="list-group-item p-1 cursor-pointer"
+                                                            @click="addPlayer('player_1', user)">
+                                                            <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name">
+                                                            </div>
+                                                            <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username">
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-1">
+                                        <div class="col-6 mb-1">
+                                            <div class="input-group cursor-pointer"
+                                                @click.outside="createData.show.player_4=false">
+                                                <span class="input-group-text p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_4 }"
+                                                    @click="createData.show.player_4=!createData.show.player_4; createData.lastShow='player_4';"
+                                                    :disabled="!createData.player_4">
+                                                    <i
+                                                        :class="createData.show.player_4 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
+                                                </span>
+                                                <span class="input-group-text flex-column text-center flex-grow-1 p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_4 }"
+                                                    @click="createData.show.player_4=!createData.show.player_4; createData.lastShow='player_4';">
+                                                    <div class="m-0 p-0 text-truncate fs-7"
+                                                        x-text="createData.player_4 ? createData.player_4.name : 'ㅤ'">
+                                                    </div>
+                                                    <div class="m-0 p-0 text-truncate fs-8"
+                                                        x-text="createData.player_4 ? createData.player_4.username : 'ㅤ'">
+                                                    </div>
+                                                </span>
+                                                <button class="btn btn-danger p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_4 }"
+                                                    :disabled="!createData.player_4" @click="createData.player_4 = null">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="position-relative">
+                                                <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
+                                                    x-show="createData.show.player_4">
+                                                    <template x-for="user in indexUsersData.users">
+                                                        <li class="list-group-item p-1 cursor-pointer"
+                                                            @click="addPlayer('player_4', user)">
+                                                            <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name">
+                                                            </div>
+                                                            <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username">
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mb-1">
+                                            <div class="input-group cursor-pointer"
+                                                @click.outside="createData.show.player_2=false">
+                                                <span class="input-group-text p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_2 }"
+                                                    @click="createData.show.player_2=!createData.show.player_2; createData.lastShow='player_2';"
+                                                    :disabled="!createData.player_2">
+                                                    <i
+                                                        :class="createData.show.player_2 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
+                                                </span>
+                                                <span class="input-group-text flex-column text-center flex-grow-1 p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_2 }"
+                                                    @click="createData.show.player_2=!createData.show.player_2; createData.lastShow='player_2';">
+                                                    <div class="m-0 p-0 text-truncate fs-7"
+                                                        x-text="createData.player_2 ? createData.player_2.name : 'ㅤ'">
+                                                    </div>
+                                                    <div class="m-0 p-0 text-truncate fs-8"
+                                                        x-text="createData.player_2 ? createData.player_2.username : 'ㅤ'">
+                                                    </div>
+                                                </span>
+                                                <button class="btn btn-danger p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_2 }"
+                                                    :disabled="!createData.player_2" @click="createData.player_2 = null">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="position-relative">
+                                                <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
+                                                    x-show="createData.show.player_2">
+                                                    <template x-for="user in indexUsersData.users">
+                                                        <li class="list-group-item p-1 cursor-pointer"
+                                                            @click="addPlayer('player_2', user)">
+                                                            <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name">
+                                                            </div>
+                                                            <div class="m-0 p-0 text-truncate fs-8"
+                                                                x-text="user?.username"></div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0">
+                                        <div class="col-3">
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group cursor-pointer"
+                                                @click.outside="createData.show.player_3=false">
+                                                <span class="input-group-text p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_3 }"
+                                                    @click="createData.show.player_3=!createData.show.player_3; createData.lastShow='player_3';"
+                                                    :disabled="!createData.player_3">
+                                                    <i
+                                                        :class="createData.show.player_3 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
+                                                </span>
+                                                <span class="input-group-text flex-column text-center flex-grow-1 p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_3 }"
+                                                    @click="createData.show.player_3=!createData.show.player_3; createData.lastShow='player_3';">
+                                                    <div class="m-0 p-0 text-truncate fs-7"
+                                                        x-text="createData.player_3 ? createData.player_3.name : 'ㅤ'">
+                                                    </div>
+                                                    <div class="m-0 p-0 text-truncate fs-8"
+                                                        x-text="createData.player_3 ? createData.player_3.username : 'ㅤ'">
+                                                    </div>
+                                                </span>
+                                                <button class="btn btn-danger p-1"
+                                                    :class="{ 'rounded-bottom-0': createData.show.player_3 }"
+                                                    :disabled="!createData.player_3" @click="createData.player_3 = null">
+                                                    <i class="bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="position-relative">
+                                                <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
+                                                    x-show="createData.show.player_3">
+                                                    <template x-for="user in indexUsersData.users">
+                                                        <li class="list-group-item p-1 cursor-pointer"
+                                                            @click="addPlayer('player_3', user)">
+                                                            <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name">
+                                                            </div>
+                                                            <div class="m-0 p-0 text-truncate fs-8"
+                                                                x-text="user?.username"></div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="btn-toolbar m-0 w-100 d-flex" role="toolbar">
+                                        <div class="btn-group flex-grow-1 me-2" role="group">
+                                            <button type="button" class="btn btn-success w-100 d-flex align-items-center"
+                                                @click="createGame()"
+                                                :disabled="!(createData.player_1 && createData.player_2 && createData.player_3 &&
+                                                    createData
+                                                    .player_4)">
+                                                <span class="flex-grow-1">
+                                                    ایجاد بازی
+                                                </span>
+                                                <i
+                                                    :class="'flex-grow-0 ' + (createData.isCreatingGame ? 'bi-clock' :
+                                                        'bi-plus-lg')"></i>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" @click="$dispatch('close-create-game-modal')"
+                                                class="btn btn-outline-secondary border border-secondary">
+                                                بی خیال
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 mb-1">
-                        <div class="row g-0">
-                            <div class="col-3">
-                            </div>
-                            <div class="col-6 mb-1">
-                                <div class="input-group cursor-pointer" @click.outside="createData.show.player_1=false">
-                                    <span class="input-group-text p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_1 }"
-                                        @click="createData.show.player_1=!createData.show.player_1; createData.lastShow='player_1';"
-                                        :disabled="!createData.player_1">
-                                        <i :class="createData.show.player_1 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
-                                    </span>
-                                    <span class="input-group-text flex-column text-center flex-grow-1 p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_1 }"
-                                        @click="createData.show.player_1=!createData.show.player_1; createData.lastShow='player_1';">
-                                        <div class="m-0 p-0 text-truncate fs-7"
-                                            x-text="createData.player_1 ? createData.player_1.name : 'ㅤ'">
-                                        </div>
-                                        <div class="m-0 p-0 text-truncate fs-8"
-                                            x-text="createData.player_1 ? createData.player_1.username : 'ㅤ'">
-                                        </div>
-                                    </span>
-                                    <button class="btn btn-danger p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_1 }"
-                                        :disabled="!createData.player_1" @click="createData.player_1 = null">
-                                        <i class="bi-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="position-relative">
-                                    <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
-                                        x-show="createData.show.player_1">
-                                        <template x-for="user in indexUsersData.users">
-                                            <li class="list-group-item p-1 cursor-pointer"
-                                                @click="addPlayer('player_1', user)">
-                                                <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name"></div>
-                                                <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username"></div>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-1">
-                            <div class="col-6 mb-1">
-                                <div class="input-group cursor-pointer" @click.outside="createData.show.player_4=false">
-                                    <span class="input-group-text p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_4 }"
-                                        @click="createData.show.player_4=!createData.show.player_4; createData.lastShow='player_4';"
-                                        :disabled="!createData.player_4">
-                                        <i :class="createData.show.player_4 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
-                                    </span>
-                                    <span class="input-group-text flex-column text-center flex-grow-1 p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_4 }"
-                                        @click="createData.show.player_4=!createData.show.player_4; createData.lastShow='player_4';">
-                                        <div class="m-0 p-0 text-truncate fs-7"
-                                            x-text="createData.player_4 ? createData.player_4.name : 'ㅤ'">
-                                        </div>
-                                        <div class="m-0 p-0 text-truncate fs-8"
-                                            x-text="createData.player_4 ? createData.player_4.username : 'ㅤ'">
-                                        </div>
-                                    </span>
-                                    <button class="btn btn-danger p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_4 }"
-                                        :disabled="!createData.player_4" @click="createData.player_4 = null">
-                                        <i class="bi-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="position-relative">
-                                    <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
-                                        x-show="createData.show.player_4">
-                                        <template x-for="user in indexUsersData.users">
-                                            <li class="list-group-item p-1 cursor-pointer"
-                                                @click="addPlayer('player_4', user)">
-                                                <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name"></div>
-                                                <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username"></div>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-1">
-                                <div class="input-group cursor-pointer" @click.outside="createData.show.player_2=false">
-                                    <span class="input-group-text p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_2 }"
-                                        @click="createData.show.player_2=!createData.show.player_2; createData.lastShow='player_2';"
-                                        :disabled="!createData.player_2">
-                                        <i :class="createData.show.player_2 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
-                                    </span>
-                                    <span class="input-group-text flex-column text-center flex-grow-1 p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_2 }"
-                                        @click="createData.show.player_2=!createData.show.player_2; createData.lastShow='player_2';">
-                                        <div class="m-0 p-0 text-truncate fs-7"
-                                            x-text="createData.player_2 ? createData.player_2.name : 'ㅤ'">
-                                        </div>
-                                        <div class="m-0 p-0 text-truncate fs-8"
-                                            x-text="createData.player_2 ? createData.player_2.username : 'ㅤ'">
-                                        </div>
-                                    </span>
-                                    <button class="btn btn-danger p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_2 }"
-                                        :disabled="!createData.player_2" @click="createData.player_2 = null">
-                                        <i class="bi-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="position-relative">
-                                    <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
-                                        x-show="createData.show.player_2">
-                                        <template x-for="user in indexUsersData.users">
-                                            <li class="list-group-item p-1 cursor-pointer"
-                                                @click="addPlayer('player_2', user)">
-                                                <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name"></div>
-                                                <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username"></div>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-0">
+                    <div class="col-12">
+                        <div class="row mb-3">
                             <div class="col-3">
                             </div>
                             <div class="col-6">
-                                <div class="input-group cursor-pointer" @click.outside="createData.show.player_3=false">
-                                    <span class="input-group-text p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_3 }"
-                                        @click="createData.show.player_3=!createData.show.player_3; createData.lastShow='player_3';"
-                                        :disabled="!createData.player_3">
-                                        <i :class="createData.show.player_3 ? 'bi-chevron-down' : 'bi-chevron-left'"></i>
-                                    </span>
-                                    <span class="input-group-text flex-column text-center flex-grow-1 p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_3 }"
-                                        @click="createData.show.player_3=!createData.show.player_3; createData.lastShow='player_3';">
-                                        <div class="m-0 p-0 text-truncate fs-7"
-                                            x-text="createData.player_3 ? createData.player_3.name : 'ㅤ'">
-                                        </div>
-                                        <div class="m-0 p-0 text-truncate fs-8"
-                                            x-text="createData.player_3 ? createData.player_3.username : 'ㅤ'">
-                                        </div>
-                                    </span>
-                                    <button class="btn btn-danger p-1"
-                                        :class="{ 'rounded-bottom-0': createData.show.player_3 }"
-                                        :disabled="!createData.player_3" @click="createData.player_3 = null">
-                                        <i class="bi-trash"></i>
-                                    </button>
-                                </div>
-                                <div class="position-relative">
-                                    <ul class="list-group position-absolute right-0 left-0 w-100 z-3"
-                                        x-show="createData.show.player_3">
-                                        <template x-for="user in indexUsersData.users">
-                                            <li class="list-group-item p-1 cursor-pointer"
-                                                @click="addPlayer('player_3', user)">
-                                                <div class="m-0 p-0 text-truncate fs-7" x-text="user?.name"></div>
-                                                <div class="m-0 p-0 text-truncate fs-8" x-text="user?.username"></div>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 mb-3">
-                        <div class="row g-0">
-                            <div class="col-3">
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-success w-100 d-flex align-items-center"
-                                    @click="createGame()"
-                                    :disabled="!(createData.player_1 && createData.player_2 && createData.player_3 && createData
-                                        .player_4)">
+                                <button type="button" class="btn btn-light border-dark w-100 d-flex align-items-center"
+                                    @click=" $dispatch('open-create-game-modal') ">
                                     <span class="flex-grow-1">
-                                        ایجاد بازی
+                                        ایجاد بازی جدید
                                     </span>
-                                    <i
-                                        :class="'flex-grow-0 ' + (createData.isCreatingGame ? 'bi-clock' : 'bi-plus-lg')"></i>
                                 </button>
-
                             </div>
                         </div>
                     </div>
@@ -293,29 +330,33 @@
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_1'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8"
+                                                x-text="game.players['player_1'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4 d-flex align-items-center">
-                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_4'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8"
+                                                x-text="game.players['player_4'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
-                                            <a class="rounded w-100 p-1 d-block border border-primary text-bg-info fs-8" x-show="getGameLink(game)"
-                                                x-bind:href="getGameLink(game)">
+                                            <a class="rounded w-100 p-1 d-block border border-primary text-bg-info fs-8"
+                                                x-show="getGameLink(game)" x-bind:href="getGameLink(game)">
                                                 <i class="bi-door-open"></i>
                                             </a>
                                         </div>
                                         <div class="col-4 d-flex align-items-center">
-                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_2'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8"
+                                                x-text="game.players['player_2'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                         </div>
                                         <div class="col-4">
-                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8" x-text="game.players['player_3'].name">
+                                            <div class="rounded w-100 p-1 border border-dark text-bg-light fs-8"
+                                                x-text="game.players['player_3'].name">
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -492,6 +533,7 @@
                             const gameResJson = await gameRes.json();
 
                             if (gameRes.ok) {
+                                this.$dispatch('close-create-game-modal');
                                 this.alertSuccess(gameResJson.message);
                                 this.resetCreateData();
                                 this.indexGames();
