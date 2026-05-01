@@ -279,7 +279,7 @@
 
 
                         <template x-for="game in indexGamesData.games">
-                            <div class="row d-flex justify-content-center mb-2 bg-linear-gradient rounded g-0">
+                            <div class="row d-flex justify-content-center mb-2 bg-white rounded g-0">
                                 <div class="col-4 d-flex flex-column justify-content-center">
                                     <div class="p-1">
                                         <div class="fs-8">ایجاد شده در</div>
